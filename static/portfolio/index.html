@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>John Wrexel Antopina Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+        :root {
+            --bg: #07131a;
+            --panel: rgba(8, 24, 33, 0.86);
+            --panel-strong: rgba(11, 31, 43, 0.96);
+            --line: rgba(125, 224, 255, 0.22);
+            --text: #ebf7fb;
+            --muted: #93b6c4;
+            --accent: #7de0ff;
+            --accent-strong: #f3a64f;
+            --success: #99f2c8;
+            --shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+            --radius: 24px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(125, 224, 255, 0.18), transparent 26%),
+                radial-gradient(circle at top right, rgba(243, 166, 79, 0.12), transparent 18%),
+                linear-gradient(180deg, #08141c 0%, #07131a 45%, #03080d 100%);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.18;
+            background-image:
+                linear-gradient(rgba(125, 224, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(125, 224, 255, 0.04) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .shell {
+            width: min(1180px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 40px 0 72px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 24px;
+            padding: 14px 18px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(3, 11, 16, 0.75);
+            backdrop-filter: blur(14px);
+            box-shadow: var(--shadow);
+        }
+
+        .topbar .brand,
+        .topbar nav,
+        .eyebrow,
+        .meta-list,
+        .stack,
+        .tag,
+        .pill,
+        .placeholder-label {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .topbar .brand {
+            color: var(--accent);
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .topbar nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .topbar nav a {
+            text-decoration: none;
+        }
+
+        .topbar nav a.active {
+            color: var(--text);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.25fr 0.85fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .panel {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--panel);
+            backdrop-filter: blur(12px);
+            box-shadow: var(--shadow);
+        }
+
+        .hero-copy {
+            padding: 34px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(125, 224, 255, 0.08);
+            color: var(--success);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin: 0;
+        }
+
+        h1 {
+            margin-top: 18px;
+            font-size: clamp(38px, 5vw, 68px);
+            line-height: 0.96;
+            letter-spacing: -0.05em;
+        }
+
+        .hero-copy .role {
+            margin-top: 12px;
+            font-size: clamp(18px, 2.2vw, 26px);
+            color: var(--accent);
+        }
+
+        .hero-copy .summary {
+            margin-top: 18px;
+            max-width: 66ch;
+            line-height: 1.7;
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 0 18px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            border-color: rgba(125, 224, 255, 0.48);
+        }
+
+        .button.primary {
+            background: linear-gradient(135deg, rgba(125, 224, 255, 0.18), rgba(125, 224, 255, 0.08));
+        }
+
+        .hero-side {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 18px;
+        }
+
+        .photo-placeholder {
+            min-height: 320px;
+            border-radius: 20px;
+            border: 1px dashed rgba(125, 224, 255, 0.35);
+            background:
+                linear-gradient(135deg, rgba(125, 224, 255, 0.08), rgba(243, 166, 79, 0.08)),
+                radial-gradient(circle at top, rgba(125, 224, 255, 0.18), transparent 55%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-placeholder::after,
+        .media-placeholder::after {
+            content: '';
+            position: absolute;
+            inset: 14px;
+            border-radius: 16px;
+            border: 1px solid rgba(125, 224, 255, 0.12);
+        }
+
+        .placeholder-label {
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            text-transform: uppercase;
+            line-height: 1.8;
+        }
+
+        .meta-list {
+            display: grid;
+            gap: 10px;
+            padding: 18px;
+            border-radius: 20px;
+            background: var(--panel-strong);
+            border: 1px solid var(--line);
+        }
+
+        .meta-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .meta-item strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+
+        .section {
+            padding: 28px;
+        }
+
+        .section.span-7 {
+            grid-column: span 7;
+        }
+
+        .section.span-5 {
+            grid-column: span 5;
+        }
+
+        .section.span-12 {
+            grid-column: span 12;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        .section-head h2 {
+            font-size: 25px;
+            letter-spacing: -0.04em;
+        }
+
+        .section-head p {
+            color: var(--muted);
+            max-width: 42ch;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .timeline,
+        .project-grid,
+        .skills-grid,
+        .education-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .timeline-card,
+        .project-card,
+        .skills-card,
+        .education-card {
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 20px;
+            background: rgba(5, 16, 23, 0.8);
+        }
+
+        .timeline-card h3,
+        .project-card h3,
+        .education-card h3 {
+            font-size: 19px;
+            letter-spacing: -0.03em;
+            margin-bottom: 6px;
+        }
+
+        .subhead {
+            color: var(--accent);
+            font-size: 14px;
+            margin-bottom: 14px;
+        }
+
+        .bullet-list {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--muted);
+            line-height: 1.75;
+            font-size: 14px;
+        }
+
+        .bullet-list li + li {
+            margin-top: 6px;
+        }
+
+        .project-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .media-placeholder {
+            min-height: 170px;
+            border-radius: 18px;
+            border: 1px dashed rgba(243, 166, 79, 0.38);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background:
+                linear-gradient(145deg, rgba(243, 166, 79, 0.08), rgba(125, 224, 255, 0.08)),
+                radial-gradient(circle at bottom right, rgba(243, 166, 79, 0.12), transparent 40%);
+        }
+
+        .stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .tag,
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            min-height: 30px;
+            padding: 0 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .tag {
+            border: 1px solid rgba(125, 224, 255, 0.24);
+            color: var(--accent);
+            background: rgba(125, 224, 255, 0.08);
+        }
+
+        .pill {
+            border: 1px solid rgba(243, 166, 79, 0.24);
+            color: #ffd7a7;
+            background: rgba(243, 166, 79, 0.08);
+        }
+
+        .skills-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .skills-card h3 {
+            font-size: 16px;
+            margin-bottom: 14px;
+        }
+
+        .chip-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .chip {
+            padding: 10px 12px;
+            border-radius: 14px;
+            background: rgba(125, 224, 255, 0.08);
+            border: 1px solid rgba(125, 224, 255, 0.15);
+            color: var(--text);
+            font-size: 13px;
+        }
+
+        .education-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .footer-note {
+            margin-top: 24px;
+            padding: 18px 22px;
+            border-radius: 20px;
+            border: 1px solid var(--line);
+            background: rgba(5, 16, 23, 0.78);
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 980px) {
+            .hero,
+            .project-grid,
+            .skills-grid,
+            .education-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section.span-7,
+            .section.span-5,
+            .section.span-12 {
+                grid-column: span 12;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .shell {
+                width: min(100% - 20px, 1180px);
+                padding-top: 16px;
+            }
+
+            .topbar {
+                border-radius: 24px;
+                padding: 16px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .hero-copy,
+            .section {
+                padding: 22px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .meta-item,
+            .section-head {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="shell">
+        <header class="topbar panel">
+            <div class="brand">John Wrexel Antopina</div>
+            <nav>
+                <a class="active" href="index.html">Home</a>
+                <a href="about.html">About Me</a>
+                <a href="index.html#experience">Experience</a>
+                <a href="index.html#projects">Projects</a>
+                <a href="index.html#skills">Skills</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <article class="hero-copy panel">
+                <div class="eyebrow">Available for entry-level opportunities</div>
+                <h1>Building practical software with web, AI, and systems thinking.</h1>
+                <p class="role">Information Technology Graduate | Software Development, AI, and IT Systems</p>
+                <p class="summary">
+                    Detail-oriented Information Technology graduate with hands-on experience in web development,
+                    AI automation, and machine learning systems. I enjoy building responsive applications,
+                    simplifying technical problems, and turning emerging tools into practical solutions for real teams.
+                </p>
+                <div class="cta-row" id="contact">
+                    <a class="button primary" href="mailto:jw.antopina@gmail.com">Email Me</a>
+                    <a class="button" href="https://github.com/Derozanrex19" target="_blank" rel="noreferrer">View GitHub</a>
+                </div>
+            </article>
+
+            <aside class="hero-side panel">
+                <div class="photo-placeholder">
+                    <div class="placeholder-label">
+                        Profile Photo Placeholder
+                        <br />
+                        Replace with your headshot later
+                    </div>
+                </div>
+                <div class="meta-list">
+                    <div class="meta-item"><span>Location</span><strong>Lapu-Lapu City, Cebu</strong></div>
+                    <div class="meta-item"><span>Phone</span><strong>0962 602 4717</strong></div>
+                    <div class="meta-item"><span>Email</span><strong>jw.antopina@gmail.com</strong></div>
+                    <div class="meta-item"><span>Focus</span><strong>Software Development, AI, IT Systems</strong></div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="grid">
+            <article class="section span-7 panel" id="experience">
+                <div class="section-head">
+                    <h2>Work Experience</h2>
+                    <p>Hands-on work spanning customer support, AI-assisted workflows, web projects, and distributed collaboration.</p>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-card">
+                        <h3>Intern</h3>
+                        <p class="subhead">Lifewood Data Technology | January 2026 - Present</p>
+                        <ul class="bullet-list">
+                            <li>Promoted company initiatives through multi-platform social media campaigns under the Pearl27 project.</li>
+                            <li>Applied prompt engineering techniques to support AI-related workflows and automation.</li>
+                            <li>Contributed to web-based and system-driven projects, with exposure to game and interactive applications.</li>
+                            <li>Collaborated in planning, coordination, and execution across distributed teams.</li>
+                            <li>Explored and implemented emerging technologies in practical, real-world settings.</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-card">
+                        <h3>Customer Service Representative</h3>
+                        <p class="subhead">Amazon | July 2024 - December 2024</p>
+                        <ul class="bullet-list">
+                            <li>Resolved customer concerns involving orders, payments, and deliveries.</li>
+                            <li>Performed troubleshooting for devices and services.</li>
+                            <li>Explained technical issues clearly to non-technical users.</li>
+                            <li>Followed SOPs and data privacy requirements with consistency.</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <article class="section span-5 panel">
+                <div class="section-head">
+                    <h2>Strengths</h2>
+                    <p>The profile this portfolio is designed to communicate to future employers.</p>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-card">
+                        <h3>Practical Builder</h3>
+                        <p class="subhead">From prototypes to usable systems</p>
+                        <p class="summary">Experience combining frontend work, backend integration, and AI-assisted workflows into working applications.</p>
+                    </div>
+                    <div class="timeline-card">
+                        <h3>Team-Oriented Communicator</h3>
+                        <p class="subhead">Technical ideas made understandable</p>
+                        <p class="summary">Comfortable supporting users, coordinating with teams, and translating technical issues into clear next steps.</p>
+                    </div>
+                    <div class="timeline-card">
+                        <h3>Growth Mindset</h3>
+                        <p class="subhead">Curious about new tools and methods</p>
+                        <p class="summary">Actively learning through projects in AI automation, machine learning, and modern web development.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="section span-12 panel" id="projects">
+                <div class="section-head">
+                    <h2>Selected Projects</h2>
+                    <p>Resume-based project highlights with placeholders ready for screenshots, demos, and future case studies.</p>
+                </div>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <div class="media-placeholder">
+                            <div class="placeholder-label">
+                                Project Screenshot Placeholder
+                                <br />
+                                PosturEase dashboard or live demo
+                            </div>
+                        </div>
+                        <h3>PosturEase</h3>
+                        <p class="subhead">Real-Time Posture Recognition System</p>
+                        <ul class="bullet-list">
+                            <li>Developed a posture detection system using MediaPipe Pose and machine learning.</li>
+                            <li>Integrated backend processing with Flask.</li>
+                            <li>Served as Project Manager for workflow and team coordination.</li>
+                            <li>Handled dataset collection, labeling, documentation, and system design artifacts.</li>
+                        </ul>
+                        <div class="stack">
+                            <span class="tag">Python</span>
+                            <span class="tag">Flask</span>
+                            <span class="tag">Machine Learning</span>
+                            <span class="pill">Capstone Project</span>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="media-placeholder">
+                            <div class="placeholder-label">
+                                Project Screenshot Placeholder
+                                <br />
+                                Smart Movie Picker interface
+                            </div>
+                        </div>
+                        <h3>Smart Movie Picker</h3>
+                        <p class="subhead">Movie Recommendation Web App</p>
+                        <ul class="bullet-list">
+                            <li>Built a personalized recommendation engine using mood, time, energy, genre, and region-based filtering.</li>
+                            <li>Designed a weighted scoring algorithm for ranking recommendations.</li>
+                            <li>Integrated the TMDB REST API with multi-query fetching, retry logic, and dataset fallback.</li>
+                            <li>Created a responsive UI with Tailwind CSS and Framer Motion and deployed it on Vercel.</li>
+                        </ul>
+                        <div class="stack">
+                            <span class="tag">React</span>
+                            <span class="tag">TypeScript</span>
+                            <span class="tag">Tailwind CSS</span>
+                            <span class="tag">Framer Motion</span>
+                            <span class="pill">Vercel</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-note">
+                    Picture placeholders are intentionally built in. Once you send actual images, these boxes can become project screenshots,
+                    profile photos, certifications, or branded visuals without changing the layout structure.
+                </div>
+            </article>
+
+            <article class="section span-7 panel" id="skills">
+                <div class="section-head">
+                    <h2>Technical Skills</h2>
+                    <p>A concise snapshot of the tools and strengths already reflected in your resume.</p>
+                </div>
+                <div class="skills-grid">
+                    <div class="skills-card">
+                        <h3>Development</h3>
+                        <div class="chip-wrap">
+                            <span class="chip">HTML</span>
+                            <span class="chip">CSS</span>
+                            <span class="chip">React</span>
+                            <span class="chip">TypeScript</span>
+                            <span class="chip">Flask</span>
+                            <span class="chip">System Integration</span>
+                        </div>
+                    </div>
+                    <div class="skills-card">
+                        <h3>AI and Data</h3>
+                        <div class="chip-wrap">
+                            <span class="chip">AI Automation</span>
+                            <span class="chip">Prompt Engineering</span>
+                            <span class="chip">Machine Learning Basics</span>
+                            <span class="chip">Dataset Labeling</span>
+                        </div>
+                    </div>
+                    <div class="skills-card">
+                        <h3>Project Execution</h3>
+                        <div class="chip-wrap">
+                            <span class="chip">Project Planning</span>
+                            <span class="chip">Team Coordination</span>
+                            <span class="chip">Technical Documentation</span>
+                            <span class="chip">Research</span>
+                        </div>
+                    </div>
+                    <div class="skills-card">
+                        <h3>Soft Skills</h3>
+                        <div class="chip-wrap">
+                            <span class="chip">Problem Solving</span>
+                            <span class="chip">Technical Communication</span>
+                            <span class="chip">Adaptability</span>
+                            <span class="chip">Collaboration</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="section span-5 panel" id="education">
+                <div class="section-head">
+                    <h2>Education</h2>
+                    <p>Academic background and formal credentialing.</p>
+                </div>
+                <div class="education-grid">
+                    <div class="education-card">
+                        <h3>B.S. in Information Technology</h3>
+                        <p class="subhead">University of Cebu Lapu-Lapu and Mandaue</p>
+                        <p class="summary">August 2022 - Present</p>
+                    </div>
+                    <div class="education-card">
+                        <h3>CCNAv7 Certification</h3>
+                        <p class="subhead">Switching, Routing, and Wireless Essentials</p>
+                        <p class="summary">Cisco Network Academy</p>
+                    </div>
+                </div>
+                <div class="footer-note">
+                    Future upgrade idea: this section is ready for certificate images, school achievements, or downloadable resume links once you provide files.
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script>
+        (function () {
+            const relay = (type, event) => {
+                const payload = { type };
+
+                if (event && typeof event.clientX === 'number') {
+                    payload.clientX = event.clientX;
+                    payload.clientY = event.clientY;
+                }
+
+                if (event && typeof event.key === 'string') {
+                    payload.key = event.key;
+                }
+
+                window.parent.postMessage(payload, '*');
+            };
+
+            ['mousemove', 'mousedown', 'mouseup', 'keydown', 'keyup'].forEach((type) => {
+                window.addEventListener(type, (event) => relay(type, event), { passive: true });
+            });
+        })();
+    </script>
+</body>
+</html>

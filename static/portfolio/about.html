@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About John Wrexel Antopina</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+        :root {
+            --bg: #07131a;
+            --panel: rgba(8, 24, 33, 0.86);
+            --panel-strong: rgba(11, 31, 43, 0.96);
+            --line: rgba(125, 224, 255, 0.22);
+            --text: #ebf7fb;
+            --muted: #93b6c4;
+            --accent: #7de0ff;
+            --accent-strong: #f3a64f;
+            --success: #99f2c8;
+            --shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+            --radius: 24px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(125, 224, 255, 0.18), transparent 26%),
+                radial-gradient(circle at top right, rgba(243, 166, 79, 0.12), transparent 18%),
+                linear-gradient(180deg, #08141c 0%, #07131a 45%, #03080d 100%);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.18;
+            background-image:
+                linear-gradient(rgba(125, 224, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(125, 224, 255, 0.04) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .shell {
+            width: min(1180px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 40px 0 72px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .panel {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--panel);
+            backdrop-filter: blur(12px);
+            box-shadow: var(--shadow);
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 24px;
+            padding: 14px 18px;
+            border-radius: 999px;
+            background: rgba(3, 11, 16, 0.75);
+            backdrop-filter: blur(14px);
+        }
+
+        .topbar .brand,
+        .topbar nav,
+        .eyebrow,
+        .placeholder-label,
+        .detail-list,
+        .quick-list {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .topbar .brand {
+            color: var(--accent);
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .topbar nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .topbar nav a {
+            text-decoration: none;
+        }
+
+        .topbar nav a.active {
+            color: var(--text);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .hero-copy,
+        .hero-side,
+        .section {
+            padding: 30px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(125, 224, 255, 0.08);
+            color: var(--success);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin: 0;
+        }
+
+        h1 {
+            margin-top: 16px;
+            font-size: clamp(38px, 5vw, 64px);
+            line-height: 0.96;
+            letter-spacing: -0.05em;
+        }
+
+        h2 {
+            font-size: 28px;
+            letter-spacing: -0.04em;
+            margin-bottom: 16px;
+        }
+
+        h3 {
+            font-size: 20px;
+            letter-spacing: -0.03em;
+            margin-bottom: 10px;
+        }
+
+        .lead {
+            margin-top: 16px;
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 15px;
+            max-width: 64ch;
+        }
+
+        .section-copy,
+        .story-copy {
+            color: var(--muted);
+            line-height: 1.85;
+            font-size: 15px;
+        }
+
+        .story-copy p + p,
+        .section-copy p + p {
+            margin-top: 14px;
+        }
+
+       .photo-placeholder,
+.memory-placeholder {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    position: relative;
+}
+
+.photo-placeholder img {
+    width: 95%;
+    height: 95%;
+    object-fit: contain;
+    display: block;
+}
+
+.memory-placeholder {
+    height: 220px;
+}
+
+.memory-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.photo-placeholder::after,
+.memory-placeholder::after {
+    content: '';
+    position: absolute;
+    inset: 14px;
+    border-radius: 16px;
+    border: 1px solid rgba(125, 224, 255, 0.12);
+}
+        .placeholder-label {
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            text-transform: uppercase;
+            line-height: 1.8;
+            padding: 12px;
+        }
+
+        .detail-list {
+            display: grid;
+            gap: 10px;
+            margin-top: 16px;
+            padding: 18px;
+            border-radius: 20px;
+            background: var(--panel-strong);
+            border: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .detail-list div {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .detail-list strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+
+        .section.span-7 {
+            grid-column: span 7;
+        }
+
+        .section.span-5 {
+            grid-column: span 5;
+        }
+
+        .section.span-12 {
+            grid-column: span 12;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .section-head p {
+            color: var(--muted);
+            max-width: 42ch;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 20px;
+            background: rgba(5, 16, 23, 0.8);
+        }
+
+        .quick-list {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--muted);
+            line-height: 1.75;
+            font-size: 14px;
+        }
+
+        .quick-list li + li {
+            margin-top: 6px;
+        }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            min-height: 30px;
+            padding: 0 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid rgba(125, 224, 255, 0.24);
+            background: rgba(125, 224, 255, 0.08);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .footer-note {
+            margin-top: 24px;
+            padding: 18px 22px;
+            border-radius: 20px;
+            border: 1px solid var(--line);
+            background: rgba(5, 16, 23, 0.78);
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 980px) {
+            .hero,
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section.span-7,
+            .section.span-5,
+            .section.span-12 {
+                grid-column: span 12;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .shell {
+                width: min(100% - 20px, 1180px);
+                padding-top: 16px;
+            }
+
+            .topbar {
+                border-radius: 24px;
+                padding: 16px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .hero-copy,
+            .hero-side,
+            .section {
+                padding: 22px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .section-head,
+            .detail-list div {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="shell">
+        <header class="topbar panel">
+            <div class="brand">John Wrexel Antopina</div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a class="active" href="about.html">About Me</a>
+                <a href="index.html#experience">Experience</a>
+                <a href="index.html#projects">Projects</a>
+                <a href="index.html#skills">Skills</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <article class="hero-copy panel">
+                <h1>More about me outside of work.</h1>
+                <p class="lead">
+                    When I'm not working, I'm a homebody who loves gaming, watching movies, and diving into my growing collections of toys and perfumes. I spend my free time immersed in whatever game or show has captured my attention, hunting down limited edition pieces, and discovering new scents. I think the best way to recharge is by doing what makes you genuinely happy, and for me that's staying in, getting comfortable, and enjoying the hobbies I'm passionate about.
+                </p>
+                <div class="pill-row">
+                    <span class="pill">Personal Story</span>
+                    <span class="pill">Hobbies</span>
+                    <span class="pill">Values</span>
+                    <span class="pill">Life Outside Tech</span>
+                </div>
+            </article>
+
+            <aside class="hero-side panel">
+                <div class="photo-placeholder">
+                    <div class="photo-placeholder">
+                        Personal Photo Placeholder
+                        <br />
+                        <img src="../images/Disneyland.jpg" alt="Disneyland" />
+                    </div>
+                </div>
+                <div class="detail-list">
+                    <div><span>Page Purpose</span><strong>Personal Introduction</strong></div>
+                    <div><span>Best For</span><strong>Culture Fit and Personality</strong></div>
+                    <div><span>Can Include</span><strong>Hobbies, Story, Daily Life</strong></div>
+                    <div><span>Status</span><strong>Ready for your custom text</strong></div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="grid">
+            <article class="section span-7 panel">
+                <div class="section-head">
+                    <h2>My Story</h2>
+                </div>
+                <div class="story-copy">
+                    <p>
+                        I'm a student with a passion for learning and creating. School gave me the foundation, but I'm really interested in building on it and exploring what I can make. I enjoy taking what I learn and applying it to real projects, even if I'm still figuring out my exact path.
+                    </p>
+                    <p>
+                        My portfolio reflects my growth and my commitment to improving my craft. I'm still early in my journey, but I'm excited about what's possible. When I'm not working on projects, I'm probably at home with a game or movie, or hunting down the next piece for my toy and perfume collections.
+                    </p>
+                    <p>
+                        I love what I do and I'm always up for chatting about creative ideas, new projects, or even just nerding out over the latest games and collectibles. Feel free to reach out if you want to collaborate or just say hi. I'm friendly, approachable, and always excited to meet people who share similar interests.
+                    </p>
+                </div>
+            </article>
+
+            <article class="section span-5 panel">
+                <div class="section-head">
+                    <h2>Quick Facts</h2>
+                </div>
+                <div class="card">
+                    <ul class="quick-list">
+                        <li>Obsessed with The Beatles and Radiohead right now.</li>
+                        <li>Movie that stayed with me: The Godfather Part 2.</li>
+                        <li>I'm into learning new tools, games, and creative challenges.</li>
+                        <li>I love to discover new places</li>
+                        <li>I love my dog LeBron</li>
+                        <li>I love hanging out with my friends</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="section span-12 panel">
+                <div class="section-head">
+                    <h2>Life Outside Tech</h2>
+                </div>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>Hobbies and Interests</h3>
+                        <div class="section-copy">
+                            <p>
+                                In my free time, I'm all about staying active and having fun. Basketball is my go-to sport for getting outside and staying fit. I also spend a lot of time gaming and watching movies at home, which is where I recharge. My dog LeBron and my hamster keep me company through it all. Whether I'm on the court, playing video games, or just hanging out with my pets, I'm always doing something that makes me happy.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>How I Like to Grow</h3>
+                        <div class="section-copy">
+                            <p>
+                                I like learning by doing. When something interests me, I usually explore it through hands-on practice, small experiments, and continuous improvement. That mindset helps me stay adaptable and keeps learning enjoyable instead of overwhelming.I like learning by doing. When something interests me, I usually explore it through hands-on practice, small experiments, and continuous improvement. That mindset helps me stay adaptable and keeps learning enjoyable instead of overwhelming.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>What Matters to Me</h3>
+                        <div class="section-copy">
+                            <p>
+                                I care about being dependable, respectful, and easy to work with. I want the people around
+                                me to feel that I take my responsibilities seriously while still bringing a calm and positive
+                                energy to the team.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>Future Personal Additions</h3>
+                        <div class="section-copy">
+                            <p>
+                                You can later turn this space into something more personal by writing about family,
+                                inspirations, favorite activities, memorable experiences, or what motivates you to keep
+                                building the future you want.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="section span-7 panel">
+    <div class="section-head">
+        <h2>Photo Moments</h2>
+    </div>
+    <div class="card-grid">
+        <div class="memory-placeholder">
+            <img src="../images/Macau.jpg" alt="Macau" />
+        </div>
+        <div class="memory-placeholder">
+            <img src="../images/Disneyland.jpg" alt="Disneyland" />
+        </div>
+        <div class="memory-placeholder">
+            <img src="../images/Lebron.jpg" alt="Lebron" />
+        </div>
+        <div class="memory-placeholder">
+            <img src="../images/Movie.jpg" alt="Movie" />
+        </div>
+        <div class="memory-placeholder">
+            <img src="../images/Perfume.jpg" alt="Perfume" />
+        </div>
+        <div class="memory-placeholder">
+            <img src="../images/Laptop.jpg" alt="Laptop" />
+        </div>
+    </div>
+</article>
+
+            <article class="section span-5 panel">
+                <div class="section-head">
+                    <h2>Replace Later</h2>
+                    <p>A simple checklist for customizing this page with your real story.</p>
+                </div>
+                <div class="card">
+                    <ul class="quick-list">
+                        <li>Rewrite the hero paragraph in your own voice.</li>
+                        <li>Add a real personal photo or casual portrait.</li>
+                        <li>Replace the hobbies section with your actual interests.</li>
+                        <li>Include one or two memorable life experiences.</li>
+                        <li>Add photos that make the page feel genuine and personal.</li>
+                    </ul>
+                </div>
+                <div class="footer-note">
+                    This page is intentionally safe and temporary. Once you send your preferred wording and pictures,
+                    I can turn it into something more personal and polished without changing the navigation structure.
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script>
+        (function () {
+            const relay = (type, event) => {
+                const payload = { type };
+
+                if (event && typeof event.clientX === 'number') {
+                    payload.clientX = event.clientX;
+                    payload.clientY = event.clientY;
+                }
+
+                if (event && typeof event.key === 'string') {
+                    payload.key = event.key;
+                }
+
+                window.parent.postMessage(payload, '*');
+            };
+
+            ['mousemove', 'mousedown', 'mouseup', 'keydown', 'keyup'].forEach((type) => {
+                window.addEventListener(type, (event) => relay(type, event), { passive: true });
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -1,6 +1,6 @@
-# henryheffernan.com
+# John Wrexel Antopina Portfolio
 
-This is one of two repositories created for my portfolio website <a href="https://henryheffernan.com/"><samp>henryheffernan.com</samp></a>. If you are looking for the 2D OS repository you can find it <a href="https://github.com/henryjeff/portfolio-inner-site"><samp>here</samp></a>! Thanks for taking the time to check this out. If you have any questions of comments, feel free to shoot me an email at <samp><a href="mailto:henryheffernan@gmail.com">henryheffernan@gmail.com</a></samp> or you can DM me on twitter <a href="https://twitter.com/henryheffernan"><samp>@henryheffernan</samp></a>.
+This repository contains a 3D portfolio experience customized for John Wrexel Antopina. The monitor now loads a local portfolio page built from resume content so the project can be edited and deployed from a single codebase. If you want to customize the inner content further, start with the files in <samp>static/portfolio</samp>.
 
 <br>
 
