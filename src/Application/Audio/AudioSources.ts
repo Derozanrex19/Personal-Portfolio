@@ -18,26 +18,6 @@ export class ComputerAudio extends AudioSource {
     constructor(manager: AudioManager) {
         super(manager);
 
-        document.addEventListener('mousedown', (event) => {
-            // @ts-ignore
-            if (event.inComputer) {
-                this.manager.playAudio('mouseDown', {
-                    volume: 0.8,
-                    position: new THREE.Vector3(800, -300, 1200),
-                });
-            }
-        });
-
-        document.addEventListener('mouseup', (event) => {
-            // @ts-ignore
-            if (event.inComputer) {
-                this.manager.playAudio('mouseUp', {
-                    volume: 0.8,
-                    position: new THREE.Vector3(800, -300, 1200),
-                });
-            }
-        });
-
         document.addEventListener('keyup', (event) => {
             // @ts-ignore
             if (event.inComputer) {
@@ -75,16 +55,8 @@ export class AmbienceAudio extends AudioSource {
         super(manager);
         UIEventBus.on('loadingScreenDone', () => {
             this.poolKey = this.manager.playAudio('office', {
-                volume: 1,
+                volume: 0.22,
                 loop: true,
-                randDetuneScale: 0,
-                filter: {
-                    type: 'lowpass',
-                    frequency: 1000,
-                },
-            });
-            this.manager.playAudio('startup', {
-                volume: 0.4,
                 randDetuneScale: 0,
             });
         });
@@ -105,21 +77,6 @@ export class AmbienceAudio extends AudioSource {
     }
 
     update() {
-        const cameraPosition =
-            this.manager.application.camera.instance.position;
-        const y = cameraPosition.y;
-        const x = cameraPosition.x;
-        const z = cameraPosition.z;
-
-        // calculate distance to origin
-        const distance = Math.sqrt(x * x + y * y + z * z);
-
-        const freq = this.mapValues(distance, 0, 10000, 100, 22000);
-
-        const volume = this.mapValues(distance, 1200, 10000, 0, 0.2);
-        const volumeClamped = Math.min(Math.max(volume, 0.05), 0.1);
-
-        this.manager.setAudioFilterFrequency(this.poolKey, freq - 3000);
-        this.manager.setAudioVolume(this.poolKey, volumeClamped);
+        if (!this.poolKey) return;
     }
 }

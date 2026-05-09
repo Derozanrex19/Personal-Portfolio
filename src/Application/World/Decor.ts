@@ -8,6 +8,8 @@ export default class Decor {
     scene: THREE.Scene;
     resources: Resources;
     bakedModel: BakedModel;
+    model: THREE.Group;
+    paperMesh: THREE.Mesh | undefined;
 
     constructor() {
         this.application = new Application();
@@ -27,6 +29,11 @@ export default class Decor {
     }
 
     setModel() {
-        this.scene.add(this.bakedModel.getModel());
+        this.model = this.bakedModel.getModel();
+        const paper = this.model.getObjectByName('paper');
+        if (paper instanceof THREE.Mesh) {
+            this.paperMesh = paper;
+        }
+        this.scene.add(this.model);
     }
 }

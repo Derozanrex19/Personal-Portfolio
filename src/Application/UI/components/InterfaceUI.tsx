@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import UIEventBus from '../EventBus';
 import InfoOverlay from './InfoOverlay';
+import ResumeOverlay from './ResumeOverlay';
 
 interface InterfaceUIProps {}
 
@@ -9,7 +10,9 @@ const InterfaceUI: React.FC<InterfaceUIProps> = ({}) => {
     const [initLoad, setInitLoad] = useState(true);
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [resumeOpen, setResumeOpen] = useState(false);
     const interfaceRef = useRef<HTMLDivElement>(null);
+    const resumeOpenRef = useRef(false);
 
     useEffect(() => {
         UIEventBus.on('loadingScreenDone', () => {
@@ -39,7 +42,12 @@ const InterfaceUI: React.FC<InterfaceUIProps> = ({}) => {
     }, [loading, initLoad]);
 
     useEffect(() => {
+        resumeOpenRef.current = resumeOpen;
+    }, [resumeOpen]);
+
+    useEffect(() => {
         UIEventBus.on('enterMonitor', () => {
+            if (resumeOpenRef.current) return;
             setVisible(false);
             setInitLoad(false);
             if (interfaceRef.current) {
@@ -52,18 +60,31 @@ const InterfaceUI: React.FC<InterfaceUIProps> = ({}) => {
                 interfaceRef.current.style.pointerEvents = 'auto';
             }
         });
+
+        UIEventBus.on('resumeOpen', () => {
+            setResumeOpen(true);
+            setVisible(true);
+            if (interfaceRef.current) {
+                interfaceRef.current.style.pointerEvents = 'auto';
+            }
+        });
+
+        UIEventBus.on('resumeClose', () => {
+            setResumeOpen(false);
+        });
     }, []);
 
     return !loading ? (
         <motion.div
             initial="hide"
             variants={vars}
-            animate={visible ? 'visible' : 'hide'}
+            animate={visible || resumeOpen ? 'visible' : 'hide'}
             style={styles.wrapper}
             className="interface-wrapper"
             id="prevent-click"
         >
             <InfoOverlay visible={visible} />
+            <ResumeOverlay />
         </motion.div>
     ) : (
         <></>

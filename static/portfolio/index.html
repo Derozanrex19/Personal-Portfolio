@@ -179,6 +179,63 @@
             margin-top: 24px;
         }
 
+        .contact-panel {
+            margin-top: 24px;
+            padding: 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(125, 224, 255, 0.16);
+            background: rgba(5, 16, 23, 0.7);
+        }
+
+        .contact-panel-title {
+            color: var(--text);
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .contact-list {
+            display: grid;
+            gap: 10px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .contact-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(125, 224, 255, 0.08);
+        }
+
+        .contact-row:last-child {
+            padding-bottom: 0;
+            border-bottom: 0;
+        }
+
+        .contact-label {
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--accent);
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .contact-value {
+            color: var(--text);
+            text-align: right;
+            word-break: break-word;
+        }
+
+        .contact-value a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(125, 224, 255, 0.22);
+        }
+
         .button {
             display: inline-flex;
             align-items: center;
@@ -206,10 +263,12 @@
             flex-direction: column;
             gap: 16px;
             padding: 18px;
+            min-width: 0;
         }
 
         .photo-placeholder {
-            min-height: 320px;
+            aspect-ratio: 99 / 94;
+            padding: 0;
             border-radius: 20px;
             border: 1px dashed rgba(125, 224, 255, 0.35);
             background:
@@ -222,11 +281,20 @@
             overflow: hidden;
         }
 
+        .photo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
         .photo-placeholder::after,
         .media-placeholder::after {
             content: '';
             position: absolute;
-            inset: 14px;
+            inset: 10px;
             border-radius: 16px;
             border: 1px solid rgba(125, 224, 255, 0.12);
         }
@@ -353,6 +421,7 @@
         }
 
         .media-placeholder {
+            aspect-ratio: var(--media-ratio, 16 / 10);
             min-height: 170px;
             border-radius: 18px;
             border: 1px dashed rgba(243, 166, 79, 0.38);
@@ -364,6 +433,209 @@
             background:
                 linear-gradient(145deg, rgba(243, 166, 79, 0.08), rgba(125, 224, 255, 0.08)),
                 radial-gradient(circle at bottom right, rgba(243, 166, 79, 0.12), transparent 40%);
+        }
+
+        .media-placeholder.has-image {
+            padding: 0;
+            overflow: hidden;
+            border-style: solid;
+        }
+
+        .media-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .project-card--interactive {
+            cursor: pointer;
+            transition: transform 0.2s ease, border-color 0.2s ease,
+                box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .project-card--interactive:hover,
+        .project-card--interactive:focus-visible {
+            transform: translateY(-4px);
+            border-color: rgba(125, 224, 255, 0.48);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.26);
+            outline: none;
+            background: rgba(8, 22, 31, 0.92);
+        }
+
+        .project-card-copy {
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .project-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-top: 18px;
+            color: var(--muted);
+            font-size: 12px;
+            font-family: 'IBM Plex Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .project-status {
+            display: inline-flex;
+            align-items: center;
+            min-height: 30px;
+            padding: 0 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(125, 224, 255, 0.24);
+            background: rgba(125, 224, 255, 0.08);
+            color: var(--accent);
+        }
+
+        .project-cta {
+            color: var(--text);
+        }
+
+        .project-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(2, 8, 11, 0.72);
+            backdrop-filter: blur(10px);
+        }
+
+        .project-modal[hidden] {
+            display: none;
+        }
+
+        .project-modal-panel {
+            width: min(960px, 100%);
+            max-height: min(92vh, 860px);
+            overflow: auto;
+            border-radius: 28px;
+            border: 1px solid rgba(125, 224, 255, 0.24);
+            background: rgba(7, 19, 26, 0.96);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.36);
+        }
+
+        .project-modal-body {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 24px;
+            padding: 24px;
+        }
+
+        .project-modal-media {
+            aspect-ratio: var(--modal-media-ratio, 16 / 10);
+            overflow: hidden;
+            border-radius: 22px;
+            border: 1px solid rgba(125, 224, 255, 0.16);
+            padding: 0;
+            background:
+                linear-gradient(145deg, rgba(243, 166, 79, 0.08), rgba(125, 224, 255, 0.08)),
+                radial-gradient(circle at bottom right, rgba(243, 166, 79, 0.12), transparent 40%);
+        }
+
+        .project-modal-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .project-modal-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .project-modal-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .project-modal-header h3 {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .project-modal-summary {
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .project-modal-highlights {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--muted);
+            line-height: 1.75;
+            font-size: 14px;
+        }
+
+        .project-modal-highlights li + li {
+            margin-top: 6px;
+        }
+
+        .project-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .project-gallery[hidden] {
+            display: none;
+        }
+
+        .project-gallery-button {
+            min-height: 34px;
+            padding: 0 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(125, 224, 255, 0.24);
+            background: rgba(125, 224, 255, 0.08);
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 12px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            font-family: 'IBM Plex Mono', monospace;
+            transition: border-color 0.2s ease, color 0.2s ease,
+                background 0.2s ease, transform 0.2s ease;
+        }
+
+        .project-gallery-button:hover {
+            transform: translateY(-1px);
+            border-color: rgba(125, 224, 255, 0.42);
+            color: var(--text);
+        }
+
+        .project-gallery-button.active {
+            color: var(--text);
+            border-color: rgba(125, 224, 255, 0.52);
+            background: rgba(125, 224, 255, 0.18);
+        }
+
+        .project-modal-close {
+            flex: 0 0 auto;
+            min-width: 44px;
+            min-height: 44px;
+            border-radius: 999px;
+            border: 1px solid rgba(125, 224, 255, 0.24);
+            background: rgba(125, 224, 255, 0.08);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .project-modal-close:hover {
+            border-color: rgba(125, 224, 255, 0.48);
         }
 
         .stack {
@@ -397,28 +669,150 @@
             background: rgba(243, 166, 79, 0.08);
         }
 
-        .skills-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .skills-card h3 {
-            font-size: 16px;
-            margin-bottom: 14px;
-        }
-
-        .chip-wrap {
+        .skills-marquee {
+            position: relative;
+            overflow: hidden;
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 18px;
+            padding: 8px 0;
+        }
+
+        .skills-marquee::before,
+        .skills-marquee::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 80px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .skills-marquee::before {
+            left: 0;
+            background: linear-gradient(
+                to right,
+                rgba(8, 24, 33, 0.96),
+                rgba(8, 24, 33, 0)
+            );
+        }
+
+        .skills-marquee::after {
+            right: 0;
+            background: linear-gradient(
+                to left,
+                rgba(8, 24, 33, 0.96),
+                rgba(8, 24, 33, 0)
+            );
+        }
+
+        .skills-lane {
+            display: flex;
+            flex-direction: column;
             gap: 10px;
         }
 
-        .chip {
-            padding: 10px 12px;
-            border-radius: 14px;
-            background: rgba(125, 224, 255, 0.08);
-            border: 1px solid rgba(125, 224, 255, 0.15);
+        .skills-lane-label {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--accent);
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            font-family: 'IBM Plex Mono', monospace;
+            padding: 0 12px;
+        }
+
+        .skills-lane-label::before {
+            content: '';
+            display: block;
+            width: 52px;
+            height: 1px;
+            background: rgba(125, 224, 255, 0.28);
+        }
+
+        .skills-track {
+            display: flex;
+            width: max-content;
+            gap: 16px;
+            animation: skills-marquee 28s linear infinite;
+            will-change: transform;
+        }
+
+        .skills-track--reverse {
+            animation-direction: reverse;
+            animation-duration: 32s;
+        }
+
+        .skills-track:hover {
+            animation-play-state: paused;
+        }
+
+        .skills-group {
+            display: flex;
+            gap: 16px;
+            flex-shrink: 0;
+        }
+
+        .skill-card {
+            width: 220px;
+            min-height: 74px;
+            padding: 14px 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(125, 224, 255, 0.16);
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(255, 255, 255, 0.05),
+                    rgba(255, 255, 255, 0.02)
+                ),
+                rgba(4, 15, 21, 0.88);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+            transition: border-color 0.2s ease, transform 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(125, 224, 255, 0.4);
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(255, 255, 255, 0.08),
+                    rgba(255, 255, 255, 0.03)
+                ),
+                rgba(6, 19, 27, 0.94);
+        }
+
+        .skill-card-title {
             color: var(--text);
-            font-size: 13px;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .skill-card-meta {
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        @keyframes skills-marquee {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(calc(-50% - 8px));
+            }
         }
 
         .education-grid {
@@ -439,8 +833,11 @@
         @media (max-width: 980px) {
             .hero,
             .project-grid,
-            .skills-grid,
             .education-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-modal-body {
                 grid-template-columns: 1fr;
             }
 
@@ -469,14 +866,29 @@
                 padding: 22px;
             }
 
+            .skill-card {
+                width: 180px;
+                min-height: 68px;
+                padding: 12px 14px;
+            }
+
+            .skill-card-title {
+                font-size: 16px;
+            }
+
             h1 {
                 font-size: 36px;
             }
 
             .meta-item,
-            .section-head {
+            .section-head,
+            .contact-row {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+
+            .contact-value {
+                text-align: left;
             }
         }
     </style>
@@ -505,18 +917,32 @@
                     AI automation, and machine learning systems. I enjoy building responsive applications,
                     simplifying technical problems, and turning emerging tools into practical solutions for real teams.
                 </p>
-                <div class="cta-row" id="contact">
-                    <a class="button primary" href="mailto:jw.antopina@gmail.com">Email Me</a>
-                    <a class="button" href="https://github.com/Derozanrex19" target="_blank" rel="noreferrer">View GitHub</a>
+                <div class="contact-panel" id="contact">
+                    <p class="contact-panel-title">Contact Details</p>
+                    <div class="contact-list">
+                        <div class="contact-row">
+                            <span class="contact-label">Email</span>
+                            <span class="contact-value">jw.antopina@gmail.com</span>
+                        </div>
+                        <div class="contact-row">
+                            <span class="contact-label">Phone</span>
+                            <span class="contact-value">0962 602 4717</span>
+                        </div>
+                        <div class="contact-row">
+                            <span class="contact-label">GitHub</span>
+                            <span class="contact-value">
+                                <a href="https://github.com/Derozanrex19" target="_blank" rel="noreferrer">
+                                    github.com/Derozanrex19
+                                </a>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </article>
 
             <aside class="hero-side panel">
                 <div class="photo-placeholder">
-                    <div class="placeholder-label">
-                        <br />
-                        <img src="../images/Gradpic.png" alt="Graduation Picture" />
-                    </div>
+                    <img src="../images/Gradpic.png" alt="Graduation Picture" />
                 </div>
                 <div class="meta-list">
                     <div class="meta-item"><span>Location</span><strong>Lapu-Lapu City, Cebu</strong></div>
@@ -561,7 +987,7 @@
             <article class="section span-5 panel">
                 <div class="section-head">
                     <h2>Strengths</h2>
-                    <p>The profile this portfolio is designed to communicate to future employers.</p>
+                    
                 </div>
                 <div class="timeline">
                     <div class="timeline-card">
@@ -585,48 +1011,64 @@
             <article class="section span-12 panel" id="projects">
                 <div class="section-head">
                     <h2>Selected Projects</h2>
-                    <p>Resume-based project highlights with placeholders ready for screenshots, demos, and future case studies.</p>
+                    
                 </div>
                 <div class="project-grid">
-                    <div class="project-card">
-                        <div class="media-placeholder">
-                            <div class="placeholder-label">
-                                Project Screenshot Placeholder
-                                <br />
-                                PosturEase dashboard or live demo
-                            </div>
+                    <article
+                        class="project-card project-card--interactive"
+                        tabindex="0"
+                        role="button"
+                        aria-label="Open project details for PosturEase"
+                        data-project-title="PosturEase"
+                        data-project-subhead="Real-Time Posture Awareness App"
+                        data-project-summary="PosturEase is a wellness-focused project that helps users become more aware of their posture in real time. It turns a common everyday problem into something practical, approachable, and easy to improve through immediate feedback."
+                        data-project-highlights="Built as a capstone project that combined health, usability, and real-time tracking.|Helped shape the project direction as project manager while supporting documentation, planning, and delivery.|Designed to feel helpful and practical for users instead of overwhelming or overly clinical."
+                        data-project-image="../images/Posturease-2.jpg"
+                        data-project-images="../images/Posturease-2.jpg|../images/Posturease-1.jpg"
+                        data-project-ratios="1345 / 600|1344 / 602"
+                    >
+                        <div class="media-placeholder has-image" style="--media-ratio: 1345 / 600;">
+                            <img src="../images/Posturease-2.jpg" alt="PosturEase screenshot" />
                         </div>
                         <h3>PosturEase</h3>
-                        <p class="subhead">Real-Time Posture Recognition System</p>
-                        <ul class="bullet-list">
-                            <li>Developed a posture detection system using MediaPipe Pose and machine learning.</li>
-                            <li>Integrated backend processing with Flask.</li>
-                            <li>Served as Project Manager for workflow and team coordination.</li>
-                            <li>Handled dataset collection, labeling, documentation, and system design artifacts.</li>
-                        </ul>
+                        <p class="subhead">Real-Time Posture Awareness App</p>
+                        <p class="project-card-copy">
+                            A capstone project focused on helping users build healthier posture habits through clear,
+                            real-time feedback and a more supportive experience.
+                        </p>
                         <div class="stack">
                             <span class="tag">Python</span>
                             <span class="tag">Flask</span>
                             <span class="tag">Machine Learning</span>
                             <span class="pill">Capstone Project</span>
                         </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="media-placeholder">
-                            <div class="placeholder-label">
-                                Project Screenshot Placeholder
-                                <br />
-                                Smart Movie Picker interface
-                            </div>
+                        <div class="project-card-footer">
+                            <span class="project-status">Case Study</span>
+                            <span class="project-cta">Click to view</span>
+                        </div>
+                    </article>
+                    <article
+                        class="project-card project-card--interactive"
+                        tabindex="0"
+                        role="button"
+                        aria-label="Open project details for Smart Movie Picker"
+                        data-project-title="Smart Movie Picker"
+                        data-project-subhead="Personalized Movie Discovery App"
+                        data-project-summary="Smart Movie Picker helps people skip endless browsing and quickly land on a movie that fits their mood, available time, and energy. The experience was built to feel polished, cinematic, and easy to use from the first click."
+                        data-project-highlights="Focused on real-life decision-making so recommendations feel personal instead of random.|Combined smart filtering with a polished visual experience to make the product memorable.|Designed as a fast and frustration-free way to discover something worth watching."
+                        data-project-image="../images/SmartMovie-1.png"
+                        data-project-images="../images/SmartMovie-1.png|../images/SmartMovie.png"
+                        data-project-ratios="1360 / 598|868 / 572"
+                    >
+                        <div class="media-placeholder has-image" style="--media-ratio: 1360 / 598;">
+                            <img src="../images/SmartMovie-1.png" alt="Smart Movie Picker screenshot" />
                         </div>
                         <h3>Smart Movie Picker</h3>
-                        <p class="subhead">Movie Recommendation Web App</p>
-                        <ul class="bullet-list">
-                            <li>Built a personalized recommendation engine using mood, time, energy, genre, and region-based filtering.</li>
-                            <li>Designed a weighted scoring algorithm for ranking recommendations.</li>
-                            <li>Integrated the TMDB REST API with multi-query fetching, retry logic, and dataset fallback.</li>
-                            <li>Created a responsive UI with Tailwind CSS and Framer Motion and deployed it on Vercel.</li>
-                        </ul>
+                        <p class="subhead">Personalized Movie Discovery App</p>
+                        <p class="project-card-copy">
+                            A stylish recommendation app that helps users find the right movie for the moment based on
+                            mood, time, and personal preferences.
+                        </p>
                         <div class="stack">
                             <span class="tag">React</span>
                             <span class="tag">TypeScript</span>
@@ -634,51 +1076,246 @@
                             <span class="tag">Framer Motion</span>
                             <span class="pill">Vercel</span>
                         </div>
-                    </div>
+                        <div class="project-card-footer">
+                            <span class="project-status">Case Study</span>
+                            <span class="project-cta">Click to view</span>
+                        </div>
+                    </article>
+                    <article
+                        class="project-card project-card--interactive"
+                        tabindex="0"
+                        role="button"
+                        aria-label="Open project details for LifeSights"
+                        data-project-title="LifeSights"
+                        data-project-subhead="Spreadsheet-to-Dashboard Insight Platform"
+                        data-project-summary="LifeSights is a dashboard platform that helps teams turn spreadsheet files into something easier to explore, understand, and act on. Instead of digging through rows manually, users can open files, view cleaner visuals, and get faster answers from their data."
+                        data-project-highlights="Built around the real workplace need to make spreadsheets easier to read and more useful for decision-making.|Creates a smoother bridge between raw business data and a cleaner, more visual dashboard experience.|Designed to save time for users who need insights quickly without feeling buried in the file itself."
+                        data-project-image="../images/Lifesights (5).jpeg"
+                        data-project-images="../images/Lifesights (5).jpeg|../images/Lifesights (1).jpeg|../images/Lifesights (2).jpeg|../images/Lifesights (3).jpeg|../images/Lifesights (4).jpeg"
+                        data-project-ratios="1432 / 783|1600 / 614|1600 / 619|1600 / 614|1600 / 614"
+                    >
+                        <div class="media-placeholder has-image" style="--media-ratio: 1432 / 783;">
+                            <img src="../images/Lifesights (5).jpeg" alt="LifeSights screenshot" />
+                        </div>
+                        <h3>LifeSights</h3>
+                        <p class="subhead">Spreadsheet-to-Dashboard Insight Platform</p>
+                        <p class="project-card-copy">
+                            A platform that transforms spreadsheet-heavy workflows into a cleaner dashboard experience,
+                            helping people explore business data with less friction.
+                        </p>
+                        <div class="stack">
+                            <span class="tag">React</span>
+                            <span class="tag">Firebase</span>
+                            <span class="tag">Google Drive</span>
+                            <span class="pill">Data Dashboard</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-status">Case Study</span>
+                            <span class="project-cta">Click to view</span>
+                        </div>
+                    </article>
+                    <article
+                        class="project-card project-card--interactive"
+                        tabindex="0"
+                        role="button"
+                        aria-label="Open project details for SmartAI"
+                        data-project-title="SmartAI"
+                        data-project-subhead="AI-Assisted Customer Support Platform"
+                        data-project-summary="SmartAI is a support-focused platform designed to help teams respond to customer concerns faster and more consistently. It organizes incoming requests, prepares draft replies, and gives human teams better support when a conversation needs extra care."
+                        data-project-highlights="Blends automation with human review so support can stay fast without feeling careless.|Built to improve response quality, save time, and keep customer conversations organized.|Showcases the ability to turn AI into a practical business tool instead of just a technical demo."
+                        data-project-image="../images/SmartIQ.png"
+                        data-project-ratios="1360 / 559"
+                    >
+                        <div class="media-placeholder has-image" style="--media-ratio: 1360 / 559;">
+                            <img src="../images/SmartIQ.png" alt="SmartAI screenshot" />
+                        </div>
+                        <h3>SmartAI</h3>
+                        <p class="subhead">AI-Assisted Customer Support Platform</p>
+                        <p class="project-card-copy">
+                            A smart support experience that helps teams manage inquiries, draft responses, and focus
+                            more attention on the conversations that matter most.
+                        </p>
+                        <div class="stack">
+                            <span class="tag">React</span>
+                            <span class="tag">Supabase</span>
+                            <span class="tag">n8n</span>
+                            <span class="pill">AI Workflow</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-status">Case Study</span>
+                            <span class="project-cta">Click to view</span>
+                        </div>
+                    </article>
                 </div>
             </article>
 
             <article class="section span-7 panel" id="skills">
                 <div class="section-head">
                     <h2>Technical Skills</h2>
+                    
                 </div>
-                <div class="skills-grid">
-                    <div class="skills-card">
-                        <h3>Development</h3>
-                        <div class="chip-wrap">
-                            <span class="chip">HTML</span>
-                            <span class="chip">CSS</span>
-                            <span class="chip">React</span>
-                            <span class="chip">TypeScript</span>
-                            <span class="chip">Flask</span>
-                            <span class="chip">System Integration</span>
+                <div class="skills-marquee" aria-label="Technical skills marquee">
+                    <div class="skills-lane">
+                        <div class="skills-lane-label">Technical Stack</div>
+                        <div class="skills-track">
+                            <div class="skills-group">
+                                <div class="skill-card">
+                                    <div class="skill-card-title">HTML</div>
+                                    <div class="skill-card-meta">Development</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">CSS</div>
+                                    <div class="skill-card-meta">Development</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">React</div>
+                                    <div class="skill-card-meta">Frontend</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">TypeScript</div>
+                                    <div class="skill-card-meta">Application Code</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Flask</div>
+                                    <div class="skill-card-meta">Backend</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">System Integration</div>
+                                    <div class="skill-card-meta">Workflow</div>
+                                </div>
+                            </div>
+                            <div class="skills-group" aria-hidden="true">
+                                <div class="skill-card">
+                                    <div class="skill-card-title">HTML</div>
+                                    <div class="skill-card-meta">Development</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">CSS</div>
+                                    <div class="skill-card-meta">Development</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">React</div>
+                                    <div class="skill-card-meta">Frontend</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">TypeScript</div>
+                                    <div class="skill-card-meta">Application Code</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Flask</div>
+                                    <div class="skill-card-meta">Backend</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">System Integration</div>
+                                    <div class="skill-card-meta">Workflow</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="skills-card">
-                        <h3>AI and Data</h3>
-                        <div class="chip-wrap">
-                            <span class="chip">AI Automation</span>
-                            <span class="chip">Prompt Engineering</span>
-                            <span class="chip">Machine Learning Basics</span>
-                            <span class="chip">Dataset Labeling</span>
-                        </div>
-                    </div>
-                    <div class="skills-card">
-                        <h3>Project Execution</h3>
-                        <div class="chip-wrap">
-                            <span class="chip">Project Planning</span>
-                            <span class="chip">Team Coordination</span>
-                            <span class="chip">Technical Documentation</span>
-                            <span class="chip">Research</span>
-                        </div>
-                    </div>
-                    <div class="skills-card">
-                        <h3>Soft Skills</h3>
-                        <div class="chip-wrap">
-                            <span class="chip">Problem Solving</span>
-                            <span class="chip">Technical Communication</span>
-                            <span class="chip">Adaptability</span>
-                            <span class="chip">Collaboration</span>
+
+                    <div class="skills-lane">
+                        <div class="skills-lane-label">AI Tools / Literacy</div>
+                        <div class="skills-track skills-track--reverse">
+                            <div class="skills-group">
+                                <div class="skill-card">
+                                    <div class="skill-card-title">AI Automation</div>
+                                    <div class="skill-card-meta">Applied AI</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Prompt Engineering</div>
+                                    <div class="skill-card-meta">AI Workflow</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Machine Learning Basics</div>
+                                    <div class="skill-card-meta">Data Literacy</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Dataset Labeling</div>
+                                    <div class="skill-card-meta">Training Support</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Project Planning</div>
+                                    <div class="skill-card-meta">Execution</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Team Coordination</div>
+                                    <div class="skill-card-meta">Collaboration</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Technical Communication</div>
+                                    <div class="skill-card-meta">Soft Skill</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Problem Solving</div>
+                                    <div class="skill-card-meta">Soft Skill</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Adaptability</div>
+                                    <div class="skill-card-meta">Soft Skill</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Research</div>
+                                    <div class="skill-card-meta">Analysis</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Documentation</div>
+                                    <div class="skill-card-meta">Workflow</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Collaboration</div>
+                                    <div class="skill-card-meta">Teamwork</div>
+                                </div>
+                            </div>
+                            <div class="skills-group" aria-hidden="true">
+                                <div class="skill-card">
+                                    <div class="skill-card-title">AI Automation</div>
+                                    <div class="skill-card-meta">Applied AI</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Prompt Engineering</div>
+                                    <div class="skill-card-meta">AI Workflow</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Machine Learning Basics</div>
+                                    <div class="skill-card-meta">Data Literacy</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Dataset Labeling</div>
+                                    <div class="skill-card-meta">Training Support</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Project Planning</div>
+                                    <div class="skill-card-meta">Execution</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Team Coordination</div>
+                                    <div class="skill-card-meta">Collaboration</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Technical Communication</div>
+                                    <div class="skill-card-meta">Soft Skill</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Problem Solving</div>
+                                    <div class="skill-card-meta">Soft Skill</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Adaptability</div>
+                                    <div class="skill-card-meta">Soft Skill</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Research</div>
+                                    <div class="skill-card-meta">Analysis</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Documentation</div>
+                                    <div class="skill-card-meta">Workflow</div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card-title">Collaboration</div>
+                                    <div class="skill-card-meta">Teamwork</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -687,7 +1324,7 @@
             <article class="section span-5 panel" id="education">
                 <div class="section-head">
                     <h2>Education</h2>
-                    <p>Academic background and formal credentialing.</p>
+                    
                 </div>
                 <div class="education-grid">
                     <div class="education-card">
@@ -705,8 +1342,158 @@
         </section>
     </main>
 
+    <div class="project-modal" id="project-modal" hidden>
+        <div class="project-modal-panel">
+            <div class="project-modal-body">
+                <div class="project-modal-media" id="project-modal-media">
+                    <img id="project-modal-image" alt="" />
+                </div>
+                <div class="project-modal-copy">
+                    <div class="project-modal-header">
+                        <div>
+                            <h3 id="project-modal-title"></h3>
+                            <p class="subhead" id="project-modal-subhead"></p>
+                        </div>
+                        <button class="project-modal-close" id="project-modal-close" type="button" aria-label="Close project details">×</button>
+                    </div>
+                    <p class="project-modal-summary" id="project-modal-summary"></p>
+                    <div class="project-gallery" id="project-gallery" hidden></div>
+                    <ul class="project-modal-highlights" id="project-modal-highlights"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         (function () {
+            const projectCards = document.querySelectorAll('.project-card--interactive');
+            const modal = document.getElementById('project-modal');
+            const modalPanel = modal.querySelector('.project-modal-panel');
+            const modalMedia = document.getElementById('project-modal-media');
+            const modalImage = document.getElementById('project-modal-image');
+            const modalTitle = document.getElementById('project-modal-title');
+            const modalSubhead = document.getElementById('project-modal-subhead');
+            const modalSummary = document.getElementById('project-modal-summary');
+            const modalGallery = document.getElementById('project-gallery');
+            const modalHighlights = document.getElementById('project-modal-highlights');
+            const modalClose = document.getElementById('project-modal-close');
+            let activeCard = null;
+            let activeProjectImages = [];
+            let activeProjectRatios = [];
+
+            const setModalImage = (src, title, ratio) => {
+                if (!src) {
+                    modalMedia.hidden = true;
+                    modalImage.removeAttribute('src');
+                    modalImage.alt = '';
+                    modalMedia.style.removeProperty('--modal-media-ratio');
+                    return;
+                }
+
+                modalMedia.hidden = false;
+                if (ratio) {
+                    modalMedia.style.setProperty('--modal-media-ratio', ratio);
+                } else {
+                    modalMedia.style.removeProperty('--modal-media-ratio');
+                }
+                modalImage.src = src;
+                modalImage.alt = title ? `${title} screenshot` : 'Project screenshot';
+            };
+
+            const closeProjectModal = () => {
+                modal.hidden = true;
+                document.body.style.overflow = '';
+                if (activeCard) activeCard.focus();
+            };
+
+            const openProjectModal = (card) => {
+                activeCard = card;
+                const { projectTitle, projectSubhead, projectSummary, projectHighlights, projectImage } = card.dataset;
+                const imageList = (card.dataset.projectImages || projectImage || '')
+                    .split('|')
+                    .map((item) => item.trim())
+                    .filter(Boolean);
+                const ratioList = (card.dataset.projectRatios || '')
+                    .split('|')
+                    .map((item) => item.trim())
+                    .filter(Boolean);
+
+                activeProjectImages = imageList;
+                activeProjectRatios = ratioList;
+
+                modalTitle.textContent = projectTitle || '';
+                modalSubhead.textContent = projectSubhead || '';
+                modalSummary.textContent = projectSummary || '';
+                modalHighlights.innerHTML = '';
+                modalGallery.innerHTML = '';
+
+                (projectHighlights || '')
+                    .split('|')
+                    .map((item) => item.trim())
+                    .filter(Boolean)
+                    .forEach((item) => {
+                        const li = document.createElement('li');
+                        li.textContent = item;
+                        modalHighlights.appendChild(li);
+                    });
+
+                if (imageList.length > 0) {
+                    setModalImage(
+                        imageList[0],
+                        projectTitle || '',
+                        ratioList[0] || ''
+                    );
+                    if (imageList.length > 1) {
+                        modalGallery.hidden = false;
+                        imageList.forEach((src, index) => {
+                            const button = document.createElement('button');
+                            button.type = 'button';
+                            button.className = 'project-gallery-button';
+                            button.textContent = `Shot ${index + 1}`;
+                            if (index === 0) button.classList.add('active');
+                            button.addEventListener('click', () => {
+                                setModalImage(
+                                    src,
+                                    projectTitle || '',
+                                    ratioList[index] || ''
+                                );
+                                modalGallery
+                                    .querySelectorAll('.project-gallery-button')
+                                    .forEach((item, itemIndex) => {
+                                        item.classList.toggle('active', itemIndex === index);
+                                    });
+                            });
+                            modalGallery.appendChild(button);
+                        });
+                    } else {
+                        modalGallery.hidden = true;
+                    }
+                } else {
+                    modalGallery.hidden = true;
+                    setModalImage('', '');
+                }
+
+                modal.hidden = false;
+                document.body.style.overflow = 'hidden';
+            };
+
+            projectCards.forEach((card) => {
+                card.addEventListener('click', () => openProjectModal(card));
+                card.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        openProjectModal(card);
+                    }
+                });
+            });
+
+            modalClose.addEventListener('click', closeProjectModal);
+            modal.addEventListener('click', (event) => {
+                if (!modalPanel.contains(event.target)) {
+                    closeProjectModal();
+                }
+            });
+
             const relay = (type, event) => {
                 const payload = { type };
 
@@ -724,6 +1511,12 @@
 
             ['mousemove', 'mousedown', 'mouseup', 'keydown', 'keyup'].forEach((type) => {
                 window.addEventListener(type, (event) => relay(type, event), { passive: true });
+            });
+
+            window.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && !modal.hidden) {
+                    closeProjectModal();
+                }
             });
         })();
     </script>
