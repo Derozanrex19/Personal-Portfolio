@@ -103,6 +103,24 @@
             background-position: center;
         }
 
+        .desktop-icon--tetris .desktop-icon-graphic::before {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            background:
+                linear-gradient(#59dcff 0 0) 0 0 / 22px 10px no-repeat,
+                linear-gradient(#59dcff 0 0) 0 12px / 10px 10px no-repeat,
+                linear-gradient(#59dcff 0 0) 12px 12px / 10px 10px no-repeat,
+                linear-gradient(#d97eff 0 0) 24px 0 / 10px 10px no-repeat,
+                linear-gradient(#d97eff 0 0) 24px 12px / 10px 10px no-repeat,
+                linear-gradient(#d97eff 0 0) 36px 12px / 10px 10px no-repeat,
+                linear-gradient(#d97eff 0 0) 24px 24px / 10px 10px no-repeat,
+                linear-gradient(#5fe08a 0 0) 0 26px / 10px 10px no-repeat,
+                linear-gradient(#5fe08a 0 0) 12px 26px / 10px 10px no-repeat,
+                linear-gradient(#5fe08a 0 0) 12px 38px / 10px 10px no-repeat,
+                linear-gradient(#5fe08a 0 0) 24px 38px / 10px 10px no-repeat;
+        }
+
         .desktop-icon--portfolio .desktop-icon-graphic::before {
             content: '';
             position: absolute;
@@ -206,6 +224,10 @@
             <a class="desktop-icon desktop-icon--snake" href="snake.html">
                 <div class="desktop-icon-graphic" aria-hidden="true"></div>
                 <span class="desktop-icon-label">Snake</span>
+            </a>
+            <a class="desktop-icon desktop-icon--tetris" href="tetris.html">
+                <div class="desktop-icon-graphic" aria-hidden="true"></div>
+                <span class="desktop-icon-label">Tetris</span>
             </a>
             <a class="desktop-icon desktop-icon--portfolio" href="index.html">
                 <div class="desktop-icon-graphic" aria-hidden="true"></div>
