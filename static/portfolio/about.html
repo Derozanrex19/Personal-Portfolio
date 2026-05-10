@@ -484,6 +484,455 @@
                 align-items: flex-start;
             }
         }
+        /* Old desktop interface override */
+        :root {
+            --bg: #f7f6ed;
+            --panel: #ece9d8;
+            --panel-strong: #fffdf4;
+            --line: #8b8b78;
+            --text: #101010;
+            --muted: #45483f;
+            --accent: #0b61c9;
+            --accent-strong: #f5b642;
+            --success: #1f7a3f;
+            --shadow: 4px 4px 0 rgba(0, 0, 0, 0.22);
+            --radius: 8px;
+        }
+
+        html {
+            background: #f7f6ed;
+        }
+
+        body {
+            font-family: Tahoma, Verdana, sans-serif;
+            color: var(--text);
+            background:
+                linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(234, 232, 215, 0.65)),
+                #f7f6ed;
+        }
+
+        body::before {
+            z-index: 0;
+            opacity: 0.35;
+            background-image:
+                radial-gradient(rgba(0, 0, 0, 0.16) 0.65px, transparent 0.75px),
+                radial-gradient(rgba(255, 255, 255, 0.8) 0.65px, transparent 0.75px);
+            background-position: 0 0, 2px 2px;
+            background-size: 4px 4px;
+            mix-blend-mode: multiply;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.08;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.35) 0,
+                rgba(0, 0, 0, 0.35) 1px,
+                transparent 1px,
+                transparent 4px
+            );
+        }
+
+        .shell {
+            width: min(1180px, calc(100% - 28px));
+            padding: 18px 0 54px;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 8px;
+            z-index: 20;
+            margin-bottom: 18px;
+            padding: 7px 8px;
+            border: 2px solid #164e9f;
+            border-radius: 8px 8px 3px 3px;
+            background: linear-gradient(180deg, #3f9dff 0%, #1169d8 42%, #0744a2 100%);
+            box-shadow:
+                inset 1px 1px 0 rgba(255, 255, 255, 0.85),
+                var(--shadow);
+            backdrop-filter: none;
+        }
+
+        .topbar .brand,
+        .topbar nav,
+        .eyebrow,
+        .placeholder-label,
+        .detail-list,
+        .quick-list {
+            font-family: Tahoma, Verdana, sans-serif;
+        }
+
+        .topbar .brand {
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.45);
+        }
+
+        .topbar nav {
+            gap: 6px;
+            color: #14213d;
+            font-size: 11px;
+        }
+
+        .topbar nav a {
+            min-height: 24px;
+            padding: 4px 9px;
+            border: 1px solid #6b6b5f;
+            border-radius: 2px;
+            color: #111111;
+            background: linear-gradient(180deg, #fffef8, #d6d2bf);
+            box-shadow:
+                inset 1px 1px 0 #ffffff,
+                inset -1px -1px 0 #8d8978;
+        }
+
+        .topbar nav a.active {
+            color: #ffffff;
+            border-color: #06357e;
+            background: linear-gradient(180deg, #2f86eb, #0a55bd);
+            box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.45);
+        }
+
+        .theme-toggle {
+            min-height: 24px;
+            padding: 4px 10px;
+            border: 1px solid #6b6b5f;
+            border-radius: 2px;
+            color: #111111;
+            background: linear-gradient(180deg, #fffef8, #d6d2bf);
+            box-shadow:
+                inset 1px 1px 0 #ffffff,
+                inset -1px -1px 0 #8d8978;
+            font: inherit;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .panel {
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #164e9f;
+            border-radius: 8px;
+            color: var(--text);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(236, 233, 216, 0.94)),
+                var(--panel);
+            box-shadow:
+                inset 1px 1px 0 #ffffff,
+                inset -1px -1px 0 #8c8c78,
+                var(--shadow);
+            backdrop-filter: none;
+        }
+
+        .panel::before {
+            content: 'about-me.exe';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 28px;
+            padding: 6px 78px 0 10px;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.55);
+            background: linear-gradient(180deg, #4aa3ff 0%, #1169d8 42%, #0648aa 100%);
+            box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.65);
+        }
+
+        .panel::after {
+            content: '_  []  X';
+            position: absolute;
+            top: 5px;
+            right: 7px;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.55);
+        }
+
+        .hero-copy,
+        .hero-side,
+        .section {
+            padding-top: 54px;
+        }
+
+        .eyebrow,
+        .quick-list li {
+            border: 1px solid #7f9db9;
+            border-radius: 2px;
+            color: #06357e;
+            background: #ffffff;
+            letter-spacing: 0;
+            text-transform: none;
+            box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #b7b7a6;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #111111;
+            letter-spacing: 0;
+        }
+
+        h1 {
+            font-size: 42px;
+            line-height: 1.05;
+        }
+
+        h2 {
+            font-size: 23px;
+        }
+
+        h3 {
+            font-size: 18px;
+        }
+
+        .lead,
+        .section-copy,
+        .story-copy,
+        .photo-gallery-note,
+        .quick-list,
+        .detail-list,
+        .footer-note {
+            color: var(--muted);
+        }
+
+        .subhead,
+        .detail-list span,
+        .quick-list strong {
+            color: #0b61c9;
+        }
+
+        .photo-placeholder,
+        .memory-placeholder,
+        .photo-gallery-shell {
+            border: 2px inset #c7c3ad;
+            border-radius: 3px;
+            background: #ffffff;
+        }
+
+        .masonry-item {
+            border: 1px solid #9b9888;
+            border-radius: 2px;
+            background: #ffffff;
+            box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.18);
+        }
+
+        .masonry-item::after {
+            border-radius: 2px;
+            border-color: rgba(255, 255, 255, 0.45);
+        }
+
+        .footer-note,
+        .detail-list,
+        .quick-list,
+        .card,
+        .card-grid > *,
+        .story-card {
+            border: 2px solid #a4a08d;
+            border-radius: 4px;
+            background: #fffdf4;
+            box-shadow:
+                inset 1px 1px 0 #ffffff,
+                inset -1px -1px 0 #b8b39f;
+        }
+
+        .back-shortcut {
+            display: inline-grid;
+            grid-template-columns: 18px auto;
+            align-items: center;
+            gap: 7px;
+            min-height: 30px;
+            margin-top: 18px;
+            padding: 4px 10px 4px 6px;
+            border: 1px solid #6b6b5f;
+            border-radius: 2px;
+            color: #111111;
+            text-decoration: none;
+            background: linear-gradient(180deg, #fffef8, #d6d2bf);
+            box-shadow:
+                inset 1px 1px 0 #ffffff,
+                inset -1px -1px 0 #8d8978;
+        }
+
+        .back-shortcut::before {
+            content: '<';
+            display: grid;
+            place-items: center;
+            width: 17px;
+            height: 17px;
+            border: 1px solid #164e9f;
+            border-radius: 2px;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            background: linear-gradient(180deg, #62b5ff, #0a55bd);
+            box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        .back-shortcut:hover,
+        .back-shortcut:focus-visible {
+            color: #ffffff;
+            border-color: #06357e;
+            background: linear-gradient(180deg, #2f86eb, #0a55bd);
+            outline: none;
+        }
+
+        html[data-theme='matrix'] {
+            background: #020502;
+        }
+
+        html[data-theme='matrix'] body {
+            color: #dfffe0;
+            background:
+                radial-gradient(circle at top, rgba(94, 255, 138, 0.08), transparent 28%),
+                linear-gradient(180deg, #031006 0%, #010401 100%);
+        }
+
+        html[data-theme='matrix'] body::before {
+            opacity: 0.24;
+            background-image:
+                radial-gradient(rgba(94, 255, 138, 0.2) 0.65px, transparent 0.75px),
+                radial-gradient(rgba(255, 255, 255, 0.04) 0.65px, transparent 0.75px);
+            background-position: 0 0, 2px 2px;
+            background-size: 4px 4px;
+            mix-blend-mode: screen;
+        }
+
+        html[data-theme='matrix'] body::after {
+            opacity: 0.12;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(39, 255, 92, 0.18) 0,
+                rgba(39, 255, 92, 0.18) 1px,
+                transparent 1px,
+                transparent 4px
+            );
+        }
+
+        html[data-theme='matrix'] .topbar {
+            border-color: #1d6d31;
+            background: linear-gradient(180deg, #122814 0%, #081408 48%, #020502 100%);
+            box-shadow:
+                inset 1px 1px 0 rgba(120, 255, 154, 0.16),
+                0 0 0 1px rgba(29, 109, 49, 0.42);
+        }
+
+        html[data-theme='matrix'] .topbar .brand,
+        html[data-theme='matrix'] .panel::before,
+        html[data-theme='matrix'] .panel::after {
+            color: #e3ffe5;
+            text-shadow: 0 0 8px rgba(94, 255, 138, 0.32);
+        }
+
+        html[data-theme='matrix'] .topbar nav a,
+        html[data-theme='matrix'] .theme-toggle,
+        html[data-theme='matrix'] .back-shortcut {
+            color: #d4ffd8;
+            border-color: #286b37;
+            background: linear-gradient(180deg, #0c1c0d, #050b05);
+            box-shadow:
+                inset 1px 1px 0 rgba(120, 255, 154, 0.12),
+                inset -1px -1px 0 rgba(0, 0, 0, 0.75);
+        }
+
+        html[data-theme='matrix'] .topbar nav a.active,
+        html[data-theme='matrix'] .theme-toggle:hover,
+        html[data-theme='matrix'] .theme-toggle:focus-visible,
+        html[data-theme='matrix'] .back-shortcut:hover,
+        html[data-theme='matrix'] .back-shortcut:focus-visible {
+            color: #021004;
+            border-color: #68ff95;
+            background: linear-gradient(180deg, #9cffb6, #3cda6b);
+        }
+
+        html[data-theme='matrix'] .panel {
+            color: #dfffe0;
+            border-color: #286b37;
+            background:
+                linear-gradient(180deg, rgba(10, 18, 10, 0.98), rgba(2, 6, 2, 0.98)),
+                #041004;
+            box-shadow:
+                inset 1px 1px 0 rgba(120, 255, 154, 0.12),
+                inset -1px -1px 0 rgba(0, 0, 0, 0.8),
+                0 0 0 1px rgba(26, 82, 40, 0.45);
+        }
+
+        html[data-theme='matrix'] .panel::before {
+            background: linear-gradient(180deg, #18341b 0%, #0a180b 45%, #030703 100%);
+            box-shadow: inset 1px 1px 0 rgba(120, 255, 154, 0.12);
+        }
+
+        html[data-theme='matrix'] h1,
+        html[data-theme='matrix'] h2,
+        html[data-theme='matrix'] h3,
+        html[data-theme='matrix'] .detail-list strong,
+        html[data-theme='matrix'] .quick-list li {
+            color: #ecffed;
+        }
+
+        html[data-theme='matrix'] .subhead,
+        html[data-theme='matrix'] .detail-list span,
+        html[data-theme='matrix'] .quick-list strong,
+        html[data-theme='matrix'] .back-shortcut::before {
+            color: #68ff95;
+        }
+
+        html[data-theme='matrix'] .lead,
+        html[data-theme='matrix'] .section-copy,
+        html[data-theme='matrix'] .story-copy,
+        html[data-theme='matrix'] .photo-gallery-note,
+        html[data-theme='matrix'] .quick-list,
+        html[data-theme='matrix'] .detail-list,
+        html[data-theme='matrix'] .footer-note {
+            color: #9ecaa2;
+        }
+
+        html[data-theme='matrix'] .eyebrow,
+        html[data-theme='matrix'] .quick-list li,
+        html[data-theme='matrix'] .photo-placeholder,
+        html[data-theme='matrix'] .memory-placeholder,
+        html[data-theme='matrix'] .photo-gallery-shell,
+        html[data-theme='matrix'] .masonry-item,
+        html[data-theme='matrix'] .footer-note,
+        html[data-theme='matrix'] .detail-list,
+        html[data-theme='matrix'] .quick-list,
+        html[data-theme='matrix'] .card,
+        html[data-theme='matrix'] .card-grid > *,
+        html[data-theme='matrix'] .story-card {
+            border-color: #286b37;
+            background: linear-gradient(180deg, rgba(10, 18, 10, 0.98), rgba(2, 6, 2, 0.98));
+            box-shadow:
+                inset 1px 1px 0 rgba(120, 255, 154, 0.12),
+                inset -1px -1px 0 rgba(0, 0, 0, 0.8);
+        }
+
+        html[data-theme='matrix'] .back-shortcut::before {
+            border-color: #2f8f46;
+            background: linear-gradient(180deg, #8fffab, #138732);
+            box-shadow: inset 1px 1px 0 rgba(238, 255, 240, 0.55);
+        }
+
+        @media (max-width: 720px) {
+            .topbar {
+                top: 0;
+                border-radius: 0 0 8px 8px;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -498,6 +947,7 @@
                 <a href="index.html#skills">Skills</a>
                 <a href="index.html#contact">Contact</a>
             </nav>
+            <button class="theme-toggle" id="theme-toggle" type="button">Matrix Mode</button>
         </header>
 
         <section class="hero">
@@ -506,6 +956,7 @@
                 <p class="lead">
                     When I'm not working, I'm a homebody who loves gaming, watching movies, and diving into my growing collections of toys and perfumes. I spend my free time immersed in whatever game or show has captured my attention, hunting down limited edition pieces, and discovering new scents. I think the best way to recharge is by doing what makes you genuinely happy, and for me that's staying in, getting comfortable, and enjoying the hobbies I'm passionate about.
                 </p>
+                <a class="back-shortcut" href="index.html">Back to Portfolio</a>
                 <div class="pill-row">
                     <span class="pill">Personal Story</span>
                     <span class="pill">Hobbies</span>
@@ -614,6 +1065,40 @@
             </article>
         </section>
     </main>
+
+    <script>
+        (function () {
+            const themeKey = 'portfolioTheme';
+            const root = document.documentElement;
+            const button = document.getElementById('theme-toggle');
+
+            const syncLabel = () => {
+                if (!button) return;
+                button.textContent =
+                    root.dataset.theme === 'matrix' ? 'Light Mode' : 'Matrix Mode';
+            };
+
+            const applyTheme = (theme) => {
+                if (theme === 'matrix') {
+                    root.dataset.theme = 'matrix';
+                } else {
+                    delete root.dataset.theme;
+                }
+                syncLabel();
+            };
+
+            applyTheme(localStorage.getItem(themeKey) || 'light');
+
+            if (button) {
+                button.addEventListener('click', () => {
+                    const nextTheme =
+                        root.dataset.theme === 'matrix' ? 'light' : 'matrix';
+                    localStorage.setItem(themeKey, nextTheme);
+                    applyTheme(nextTheme);
+                });
+            }
+        })();
+    </script>
 
     <script>
         (function () {
