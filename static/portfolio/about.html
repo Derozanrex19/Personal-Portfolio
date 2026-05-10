@@ -366,14 +366,15 @@
         .photo-gallery-shell {
             position: relative;
             width: 100%;
-            min-height: 340px;
+            height: clamp(340px, 62vh, 560px);
             margin-top: 8px;
+            overflow: hidden;
         }
 
         .masonry-list {
             position: relative;
             width: 100%;
-            min-height: 340px;
+            height: 100%;
         }
 
         .masonry-item-wrapper {
@@ -465,6 +466,10 @@
 
             .lead {
                 font-size: 16px;
+            }
+
+            .photo-gallery-shell {
+                height: 420px;
             }
 
             .section-copy,
@@ -690,15 +695,142 @@
                     width: 1600,
                     height: 1200,
                 },
+                {
+                    id: 'photogallery-6',
+                    img: '../images/Photogallery (6).jpg',
+                    alt: 'Photo Gallery 6',
+                    width: 1500,
+                    height: 2000,
+                },
+                {
+                    id: 'photogallery-7',
+                    img: '../images/Photogallery (7).jpg',
+                    alt: 'Photo Gallery 7',
+                    width: 1536,
+                    height: 2048,
+                },
+                {
+                    id: 'photogallery-8',
+                    img: '../images/Photogallery (8).jpg',
+                    alt: 'Photo Gallery 8',
+                    width: 2048,
+                    height: 2048,
+                },
+                {
+                    id: 'photogallery-9',
+                    img: '../images/Photogallery (9).jpg',
+                    alt: 'Photo Gallery 9',
+                    width: 1536,
+                    height: 2048,
+                },
+                {
+                    id: 'photogallery-10',
+                    img: '../images/Photogallery (10).jpg',
+                    alt: 'Photo Gallery 10',
+                    width: 2048,
+                    height: 1536,
+                },
+                {
+                    id: 'photogallery-11',
+                    img: '../images/Photogallery (11).jpg',
+                    alt: 'Photo Gallery 11',
+                    width: 1536,
+                    height: 2048,
+                },
+                {
+                    id: 'photogallery-12',
+                    img: '../images/Photogallery (12).jpg',
+                    alt: 'Photo Gallery 12',
+                    width: 900,
+                    height: 1600,
+                },
+                {
+                    id: 'photogallery-13',
+                    img: '../images/Photogallery (13).jpg',
+                    alt: 'Photo Gallery 13',
+                    width: 1536,
+                    height: 2048,
+                },
             ];
 
             const masonryRoot = document.getElementById('photo-masonry');
 
-            const getMasonryColumns = (width) => {
-                if (width >= 1200) return 5;
-                if (width >= 900) return 4;
-                if (width >= 560) return 2;
-                return 1;
+            const getIdealRowCount = (width, height) => {
+                const totalAspect = photoItems.reduce(
+                    (sum, item) => sum + item.width / item.height,
+                    0
+                );
+                const estimate = Math.round(
+                    Math.sqrt((height * totalAspect) / width)
+                );
+
+                if (width >= 1200) {
+                    return Math.max(3, Math.min(photoItems.length, estimate));
+                }
+
+                if (width >= 720) {
+                    return Math.max(4, Math.min(photoItems.length, estimate + 1));
+                }
+
+                return Math.max(5, Math.min(photoItems.length, estimate + 2));
+            };
+
+            const buildRows = (rowCount) => {
+                const rows = [];
+                const totalAspect = photoItems.reduce(
+                    (sum, item) => sum + item.width / item.height,
+                    0
+                );
+                const targetAspectPerRow = totalAspect / rowCount;
+                let currentRow = [];
+                let currentAspect = 0;
+
+                photoItems.forEach((item, index) => {
+                    currentRow.push({ item, index });
+                    currentAspect += item.width / item.height;
+
+                    const rowsRemaining = rowCount - rows.length - 1;
+                    const itemsRemaining = photoItems.length - index - 1;
+                    const shouldReserveOnePerRow = itemsRemaining === rowsRemaining;
+                    const shouldCloseRow =
+                        rowsRemaining > 0 &&
+                        currentAspect >= targetAspectPerRow * 0.92 &&
+                        itemsRemaining > rowsRemaining;
+
+                    if (shouldReserveOnePerRow || shouldCloseRow) {
+                        rows.push(currentRow);
+                        currentRow = [];
+                        currentAspect = 0;
+                    }
+                });
+
+                if (currentRow.length) {
+                    rows.push(currentRow);
+                }
+
+                return rows;
+            };
+
+            const evaluateRows = (width, height, rowCount) => {
+                const rows = buildRows(rowCount);
+                const baseHeights = rows.map((row) => {
+                    const rowAspect = row.reduce(
+                        (sum, entry) => sum + entry.item.width / entry.item.height,
+                        0
+                    );
+                    return width / rowAspect;
+                });
+                const totalBaseHeight = baseHeights.reduce(
+                    (sum, rowHeight) => sum + rowHeight,
+                    0
+                );
+
+                return {
+                    rows,
+                    baseHeights,
+                    totalBaseHeight,
+                    diff: Math.abs(totalBaseHeight - height),
+                };
             };
 
             const buildMasonryItems = () => {
@@ -741,34 +873,75 @@
                 if (!masonryRoot) return;
 
                 const width = masonryRoot.clientWidth;
-                if (!width) return;
+                const height = masonryRoot.clientHeight;
+                if (!width || !height) return;
 
-                const columns = getMasonryColumns(width);
-                const columnWidth = width / columns;
-                const columnHeights = new Array(columns).fill(0);
-                const nodes = masonryRoot.querySelectorAll(
-                    '.masonry-item-wrapper'
+                const nodes = Array.from(
+                    masonryRoot.querySelectorAll(
+                        '.masonry-item-wrapper'
+                    )
                 );
-
-                nodes.forEach((node, index) => {
-                    const item = photoItems[index];
-                    const mediaWidth = columnWidth - 16;
-                    const mediaHeight = mediaWidth * (item.height / item.width);
-                    const columnIndex = columnHeights.indexOf(
-                        Math.min(...columnHeights)
+                const idealRowCount = getIdealRowCount(width, height);
+                const candidateRowCounts = [
+                    idealRowCount - 1,
+                    idealRowCount,
+                    idealRowCount + 1,
+                    idealRowCount + 2,
+                ]
+                    .filter(
+                        (count, index, list) =>
+                            count > 0 &&
+                            count <= photoItems.length &&
+                            list.indexOf(count) === index
                     );
-                    const x = columnIndex * columnWidth;
-                    const y = columnHeights[columnIndex];
 
-                    node.style.width = `${columnWidth}px`;
-                    node.style.height = `${mediaHeight}px`;
-                    node.style.transform = `translate(${x}px, ${y}px)`;
-                    node.style.opacity = '1';
+                const bestLayout = candidateRowCounts
+                    .map((count) => evaluateRows(width, height, count))
+                    .sort((a, b) => a.diff - b.diff)[0];
 
-                    columnHeights[columnIndex] += mediaHeight;
+                if (!bestLayout) return;
+
+                const { rows, baseHeights, totalBaseHeight } = bestLayout;
+                const heightScale = height / totalBaseHeight;
+                let y = 0;
+
+                rows.forEach((row, rowIndex) => {
+                    const baseHeight = baseHeights[rowIndex];
+                    const rowHeight =
+                        rowIndex === rows.length - 1
+                            ? height - y
+                            : baseHeight * heightScale;
+                    let x = 0;
+
+                    row.forEach((entry, itemIndex) => {
+                        const aspect = entry.item.width / entry.item.height;
+                        const naturalWidth = baseHeight * aspect;
+                        const rowWidth =
+                            itemIndex === row.length - 1
+                                ? width - x
+                                : naturalWidth;
+                        const node = nodes[entry.index];
+
+                        if (!node) return;
+
+                        node.style.width = `${rowWidth}px`;
+                        node.style.height = `${rowHeight}px`;
+                        node.style.transform = `translate(${x}px, ${y}px)`;
+                        node.style.opacity = '1';
+
+                        x += rowWidth;
+                    });
+
+                    y += rowHeight;
                 });
 
-                masonryRoot.style.height = `${Math.max(...columnHeights)}px`;
+                masonryRoot.style.height = `${height}px`;
+
+                nodes.forEach((node) => {
+                    if (!node.style.opacity) {
+                        node.style.opacity = '1';
+                    }
+                });
             };
 
             buildMasonryItems();
