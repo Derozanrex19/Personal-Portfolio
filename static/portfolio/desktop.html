@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Desktop</title>
+    <style>
+        :root {
+            --desktop-bg: #dbe7f6;
+            --desktop-accent: #1d63c7;
+            --desktop-shadow: rgba(0, 0, 0, 0.18);
+            --text: #0f1720;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+            font-family: Tahoma, Verdana, sans-serif;
+            color: var(--text);
+            background: #dbe7f6;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                linear-gradient(rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)),
+                url('../images/WindowsXp.jpg') center / cover no-repeat,
+                linear-gradient(180deg, #eaf2ff 0%, #dbe7f6 48%, #cad9ef 100%);
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.16;
+            background-image:
+                radial-gradient(rgba(0, 0, 0, 0.16) 0.65px, transparent 0.75px),
+                radial-gradient(rgba(255, 255, 255, 0.75) 0.65px, transparent 0.75px);
+            background-size: 4px 4px;
+            background-position: 0 0, 2px 2px;
+        }
+
+        .desktop-area {
+            min-height: calc(100vh - 44px);
+            padding: 18px 18px 64px;
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .icon-column {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .desktop-icon {
+            width: 104px;
+            padding: 8px 6px 10px;
+            border-radius: 8px;
+            color: #0a1430;
+            text-decoration: none;
+            text-align: center;
+            transition: background 0.18s ease, transform 0.18s ease;
+        }
+
+        .desktop-icon:hover,
+        .desktop-icon:focus-visible {
+            background: rgba(29, 99, 199, 0.18);
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        .desktop-icon-graphic {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 8px;
+            border: 1px solid #325a96;
+            border-radius: 6px;
+            position: relative;
+            background: linear-gradient(180deg, #fefefe, #d9e6ff);
+            box-shadow:
+                inset 1px 1px 0 rgba(255, 255, 255, 0.9),
+                3px 3px 0 var(--desktop-shadow);
+        }
+
+        .desktop-icon--snake .desktop-icon-graphic::before {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border-radius: 4px;
+            background:
+                linear-gradient(90deg, #31b34d 0 25%, transparent 25% 50%, #31b34d 50% 75%, transparent 75% 100%),
+                linear-gradient(#31b34d 0 25%, transparent 25% 50%, #31b34d 50% 75%, transparent 75% 100%);
+            background-size: 14px 14px;
+            background-position: center;
+        }
+
+        .desktop-icon--portfolio .desktop-icon-graphic::before {
+            content: '';
+            position: absolute;
+            inset: 8px 7px 10px 7px;
+            border: 1px solid #1d63c7;
+            background: linear-gradient(180deg, #3f9dff 0%, #1169d8 45%, #0744a2 100%);
+            box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.45);
+        }
+
+        .desktop-icon--portfolio .desktop-icon-graphic::after {
+            content: '';
+            position: absolute;
+            left: 11px;
+            right: 11px;
+            bottom: 12px;
+            height: 16px;
+            background: #f8f7ef;
+            border: 1px solid #8fa2c0;
+        }
+
+        .desktop-icon-label {
+            display: inline-block;
+            padding: 2px 4px;
+            color: #ffffff;
+            font-size: 14px;
+            line-height: 1.25;
+            text-shadow:
+                1px 1px 0 rgba(0, 0, 0, 0.82),
+                0 0 6px rgba(0, 0, 0, 0.28);
+        }
+
+        .taskbar {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 0 10px;
+            border-top: 1px solid #8fa3bf;
+            background: linear-gradient(180deg, #2d7ef0 0%, #0b59cb 48%, #0a4aac 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+        }
+
+        .start-button,
+        .task-pill {
+            min-height: 28px;
+            padding: 0 12px;
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid rgba(8, 53, 126, 0.92);
+            border-radius: 4px;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            background: linear-gradient(180deg, #61ba50, #2b8e30);
+            box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.32);
+        }
+
+        .task-pill {
+            font-weight: 500;
+            background: linear-gradient(180deg, #55abff, #2f78d8);
+        }
+
+        .clock {
+            min-width: 78px;
+            min-height: 28px;
+            padding: 0 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(8, 53, 126, 0.92);
+            border-radius: 4px;
+            color: #ffffff;
+            font-size: 12px;
+            background: linear-gradient(180deg, #6cb6ff, #3989e3);
+            box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.28);
+        }
+
+        @media (max-width: 640px) {
+            .desktop-area {
+                padding: 14px 14px 64px;
+            }
+
+            .desktop-icon {
+                width: 88px;
+            }
+
+            .desktop-icon-label {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="desktop-area">
+        <div class="icon-column">
+            <a class="desktop-icon desktop-icon--snake" href="snake.html">
+                <div class="desktop-icon-graphic" aria-hidden="true"></div>
+                <span class="desktop-icon-label">Snake</span>
+            </a>
+            <a class="desktop-icon desktop-icon--portfolio" href="index.html">
+                <div class="desktop-icon-graphic" aria-hidden="true"></div>
+                <span class="desktop-icon-label">Portfolio</span>
+            </a>
+        </div>
+    </main>
+
+    <footer class="taskbar">
+        <div class="start-button">Start</div>
+        <div class="task-pill">Desktop</div>
+        <div class="clock" id="clock">12:00 PM</div>
+    </footer>
+
+    <script>
+        (function () {
+            const clock = document.getElementById('clock');
+            if (!clock) return;
+
+            const updateClock = () => {
+                const now = new Date();
+                clock.textContent = now.toLocaleTimeString([], {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                });
+            };
+
+            updateClock();
+            window.setInterval(updateClock, 30000);
+        })();
+    </script>
+</body>
+</html>

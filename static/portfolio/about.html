@@ -600,6 +600,10 @@
             box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.45);
         }
 
+        .topbar.panel::after {
+            content: none;
+        }
+
         .theme-toggle {
             min-height: 24px;
             padding: 4px 10px;
@@ -613,6 +617,38 @@
             font: inherit;
             font-size: 11px;
             cursor: pointer;
+            margin-left: auto;
+            min-width: 118px;
+        }
+
+        .window-controls {
+            position: absolute;
+            top: 4px;
+            right: 6px;
+            z-index: 4;
+            display: flex;
+            gap: 4px;
+        }
+
+        .window-control {
+            width: 18px;
+            height: 18px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(8, 53, 126, 0.9);
+            border-radius: 2px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 700;
+            line-height: 1;
+            background: linear-gradient(180deg, #7bbcff, #1a6ee3);
+            box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.55);
+        }
+
+        .window-control--close {
+            background: linear-gradient(180deg, #ff8d8d, #c92f2f);
+            border-color: rgba(117, 17, 17, 0.95);
         }
 
         .panel {
@@ -856,6 +892,19 @@
             background: linear-gradient(180deg, #9cffb6, #3cda6b);
         }
 
+        html[data-theme='matrix'] .window-control {
+            color: #d4ffd8;
+            border-color: #2f8f46;
+            background: linear-gradient(180deg, #173219, #0a130a);
+            box-shadow: inset 1px 1px 0 rgba(120, 255, 154, 0.18);
+        }
+
+        html[data-theme='matrix'] .window-control--close {
+            color: #031003;
+            border-color: #68ff95;
+            background: linear-gradient(180deg, #9cffb6, #3cda6b);
+        }
+
         html[data-theme='matrix'] .panel {
             color: #dfffe0;
             border-color: #286b37;
@@ -947,7 +996,12 @@
                 <a href="index.html#skills">Skills</a>
                 <a href="index.html#contact">Contact</a>
             </nav>
-            <button class="theme-toggle" id="theme-toggle" type="button">Matrix Mode</button>
+            <button class="theme-toggle" id="theme-toggle" type="button">Dark Mode</button>
+            <div class="window-controls" aria-label="Window controls">
+                <span class="window-control" aria-hidden="true">_</span>
+                <span class="window-control" aria-hidden="true">[]</span>
+                <a class="window-control window-control--close" href="desktop.html" aria-label="Go to desktop">X</a>
+            </div>
         </header>
 
         <section class="hero">

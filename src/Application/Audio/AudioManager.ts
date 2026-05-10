@@ -135,18 +135,46 @@ export default class Audio {
             audio.setDetune(options.pitch * 100);
         }
 
+        const cleanupAudio = () => {
+            delete this.audioPool[poolKey];
+            if (options.position) {
+                const positionalObject = this.scene.getObjectByName(poolKey);
+                if (positionalObject) {
+                    this.scene.remove(positionalObject);
+                }
+            }
+        };
+
+        const attachOnEndedHandler = () => {
+            if (!audio.source) return;
+
+            const currentSource = audio.source;
+            const threeOnEnded = currentSource.onended;
+            currentSource.onended = (event) => {
+                if (typeof threeOnEnded === 'function') {
+                    threeOnEnded.call(currentSource, event);
+                }
+
+                if (options.loop) {
+                    audio.play();
+
+                    if (options.pitch) {
+                        audio.setDetune(options.pitch * 100);
+                    } else {
+                        audio.setDetune(detuneAmount);
+                    }
+
+                    attachOnEndedHandler();
+                    return;
+                }
+
+                cleanupAudio();
+            };
+        };
+
         // Add to pool
         if (audio.source) {
-            audio.source.onended = () => {
-                delete this.audioPool[poolKey];
-                if (options.position) {
-                    const positionalObject =
-                        this.scene.getObjectByName(poolKey);
-                    if (positionalObject) {
-                        this.scene.remove(positionalObject);
-                    }
-                }
-            };
+            attachOnEndedHandler();
             this.audioPool[poolKey] = audio;
         }
         return poolKey;
